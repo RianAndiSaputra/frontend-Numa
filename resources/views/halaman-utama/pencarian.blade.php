@@ -102,6 +102,7 @@
             position: sticky;
             top: 90px;
             z-index: 99;
+            
         }
 
         .category-tabs {
@@ -117,7 +118,7 @@
         }
 
         .category-tab {
-            min-width: 120px;
+            min-width: 100px;
             padding: 12px 20px;
             border: 2px solid #e9ecef;
             border-radius: 25px;
@@ -128,6 +129,7 @@
             font-weight: 500;
             white-space: nowrap;
             position: relative;
+            margin-top: 35px
         }
 
         .category-tab.active {
@@ -160,7 +162,8 @@
             display: flex;
             justify-content: between;
             align-items: center;
-            gap: 15px;
+            gap: 35px;
+            margin-top: 20px
         }
 
         .results-count {
@@ -175,7 +178,7 @@
         }
 
         .sort-btn {
-            padding: 8px 16px;
+            padding: 10px 10px;
             border: 1px solid #e9ecef;
             border-radius: 20px;
             background: white;
@@ -391,6 +394,14 @@
             color: #721c24;
         }
 
+        /* Price Calculation Info */
+        .price-calculation {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 5px;
+            text-align: right;
+        }
+
         /* Loading Animation */
         .loading-card {
             background: white;
@@ -534,10 +545,6 @@
                     Shared
                     <span class="badge">12</span>
                 </div>
-                <div class="category-tab" data-category="share-flight">
-                    Share Flight
-                    <span class="badge">4</span>
-                </div>
             </div>
         </div>
 
@@ -554,7 +561,7 @@
         <!-- Flight Results -->
         <div class="flight-results" id="flightResults">
             <!-- Flight Card 1 - Dedicated -->
-            <div class="flight-card" data-category="dedicated" data-price="1250000" onclick="selectFlight(this)">
+            <div class="flight-card" data-category="dedicated" data-base-price="12500000" data-passengers="10" onclick="selectFlight(this)">
                 <div class="flight-header">
                     <div class="airline-info">
                         <div class="airline-logo">GA</div>
@@ -605,12 +612,13 @@
                     <div class="price-info">
                         <div class="price">Rp 1.250.000</div>
                         <div class="price-per">/orang</div>
+                        <div class="price-calculation">Dedicated: Harga input Ron cost</div>
                     </div>
                 </div>
             </div>
 
             <!-- Flight Card 2 - Shared -->
-            <div class="flight-card" data-category="shared" data-price="980000" onclick="selectFlight(this)">
+            <div class="flight-card" data-category="shared" data-base-price="9800000" data-passengers="10" onclick="selectFlight(this)">
                 <div class="flight-header">
                     <div class="airline-info">
                         <div class="airline-logo">LN</div>
@@ -661,62 +669,7 @@
                     <div class="price-info">
                         <div class="price">Rp 980.000</div>
                         <div class="price-per">/orang</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Flight Card 3 - Share Flight -->
-            <div class="flight-card" data-category="share-flight" data-price="750000" onclick="selectFlight(this)">
-                <div class="flight-header">
-                    <div class="airline-info">
-                        <div class="airline-logo">AA</div>
-                        <div class="airline-details">
-                            <h3>AirAsia</h3>
-                            <div class="flight-number">QZ 8399</div>
-                        </div>
-                    </div>
-                    <div class="flight-type share-flight">Share Flight</div>
-                </div>
-
-                <div class="flight-route">
-                    <div class="departure">
-                        <div class="time">14:20</div>
-                        <div class="city">Jakarta</div>
-                        <div class="airport">CGK Terminal 2</div>
-                    </div>
-                    <div class="flight-path">
-                        <div class="duration">2j 25m</div>
-                        <div class="path-line"></div>
-                        <div class="stops">Langsung</div>
-                    </div>
-                    <div class="arrival">
-                        <div class="time">17:45</div>
-                        <div class="city">Bali</div>
-                        <div class="airport">DPS Terminal 1</div>
-                    </div>
-                </div>
-
-                <div class="flight-footer">
-                    <div class="facilities">
-                        <div class="facility-icon available" title="Bagasi 7kg">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17 6h-2V3c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v3H7c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2 0 .55.45 1 1 1s1-.45 1-1h6c0 .55.45 1 1 1s1-.45 1-1c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9.5 18H8V9h1.5v9zm3.25 0h-1.5V9h1.5v9zm3.25 0H14V9h1.5v9zM11 6V4h2v2h-2z"/>
-                            </svg>
-                        </div>
-                        <div class="facility-icon unavailable" title="Tidak ada makanan">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-.78-.78-2.05-.78-2.83 0-.78.78-.78 2.05 0 2.83l6.02 7.01zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
-                            </svg>
-                        </div>
-                        <div class="facility-icon unavailable" title="Tidak ada WiFi">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="price-info">
-                        <div class="price">Rp 750.000</div>
-                        <div class="price-per">/orang</div>
+                        <div class="price-calculation">Shared: Ron cost / 10 penumpang</div>
                     </div>
                 </div>
             </div>
@@ -727,7 +680,7 @@
         <!-- Bottom Action -->
         <div class="bottom-action">
             <div class="selected-flight" id="selectedInfo" style="display: none;">
-                               <div class="selected-info">1 penerbangan dipilih</div>
+                <div class="selected-info">1 penerbangan dipilih</div>
                 <div class="selected-price" id="selectedPrice">Rp 0</div>
             </div>
             <button class="continue-btn" id="continueBtn" disabled>Lanjutkan</button>
@@ -785,8 +738,8 @@
                 
                 flights.sort((a, b) => {
                     if (sortBy === 'price') {
-                        const priceA = parseInt(a.dataset.price);
-                        const priceB = parseInt(b.dataset.price);
+                        const priceA = parseInt(a.querySelector('.price').textContent.replace(/\D/g, ''));
+                        const priceB = parseInt(b.querySelector('.price').textContent.replace(/\D/g, ''));
                         return priceA - priceB;
                     } else if (sortBy === 'duration') {
                         // Logika sorting berdasarkan durasi (dalam menit)
@@ -847,61 +800,48 @@
             });
         });
 
-        // Animasi loading untuk penerbangan tambahan
+                // Animasi loading untuk penerbangan tambahan
         function showLoadingAnimation() {
             const loadingCard = document.createElement('div');
             loadingCard.className = 'loading-card';
+            
+            // Buat elemen skeleton loading
             loadingCard.innerHTML = `
-                <div class="skeleton skeleton-line" style="width: 60%"></div>
-                <div class="skeleton skeleton-line" style="width: 30%"></div>
-                <div style="display: flex; margin: 15px 0; justify-content: space-between;">
-                    <div style="width: 30%">
-                        <div class="skeleton skeleton-line" style="width: 80%; height: 20px; margin-bottom: 8px"></div>
-                        <div class="skeleton skeleton-line" style="width: 60%"></div>
-                    </div>
-                    <div style="width: 30%">
-                        <div class="skeleton skeleton-line" style="width: 100%; height: 2px; margin: 10px 0"></div>
-                        <div class="skeleton skeleton-line" style="width: 80%; margin: 0 auto"></div>
-                    </div>
-                    <div style="width: 30%">
-                        <div class="skeleton skeleton-line" style="width: 80%; height: 20px; margin-bottom: 8px"></div>
-                        <div class="skeleton skeleton-line" style="width: 60%"></div>
-                    </div>
+                <div class="skeleton skeleton-line" style="width: 60%; margin-bottom: 15px;"></div>
+                <div class="skeleton skeleton-line" style="width: 80%;"></div>
+                <div class="skeleton skeleton-line" style="width: 70%; margin-top: 20px;"></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <div class="skeleton skeleton-line" style="width: 30%;"></div>
+                    <div class="skeleton skeleton-circle"></div>
+                    <div class="skeleton skeleton-line" style="width: 30%;"></div>
                 </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <div style="display: flex; gap: 8px;">
-                        <div class="skeleton skeleton-circle"></div>
-                        <div class="skeleton skeleton-circle"></div>
-                        <div class="skeleton skeleton-circle"></div>
-                    </div>
-                    <div style="width: 30%">
-                        <div class="skeleton skeleton-line" style="width: 100%; height: 20px"></div>
-                    </div>
-                </div>
+                <div class="skeleton skeleton-line" style="width: 50%; margin-top: 20px;"></div>
             `;
             
+            // Tambahkan ke container flight results
             document.getElementById('flightResults').appendChild(loadingCard);
             
             // Simulasikan loading data
             setTimeout(() => {
                 loadingCard.remove();
-                // Tambahkan penerbangan baru setelah loading selesai
-                addMoreFlights();
+                // Tambahkan flight card baru setelah loading selesai
+                addAdditionalFlights();
             }, 1500);
         }
 
-        // Fungsi untuk menambahkan lebih banyak penerbangan (simulasi)
-        function addMoreFlights() {
+        // Fungsi untuk menambahkan penerbangan tambahan (simulasi)
+        function addAdditionalFlights() {
             const flightResults = document.getElementById('flightResults');
             
-            // Contoh penerbangan tambahan
-            const newFlight = document.createElement('div');
-            newFlight.className = 'flight-card';
-            newFlight.setAttribute('data-category', 'shared');
-            newFlight.setAttribute('data-price', '850000');
-            newFlight.onclick = function() { selectFlight(this); };
+            // Flight Card 4 - Dedicated
+            const newFlight1 = document.createElement('div');
+            newFlight1.className = 'flight-card';
+            newFlight1.setAttribute('data-category', 'dedicated');
+            newFlight1.setAttribute('data-base-price', '15000000');
+            newFlight1.setAttribute('data-passengers', '8');
+            newFlight1.onclick = function() { selectFlight(this); };
             
-            newFlight.innerHTML = `
+            newFlight1.innerHTML = `
                 <div class="flight-header">
                     <div class="airline-info">
                         <div class="airline-logo">CA</div>
@@ -910,12 +850,12 @@
                             <div class="flight-number">QG 812</div>
                         </div>
                     </div>
-                    <div class="flight-type shared">Shared</div>
+                    <div class="flight-type dedicated">Dedicated</div>
                 </div>
 
                 <div class="flight-route">
                     <div class="departure">
-                        <div class="time">11:45</div>
+                        <div class="time">11:00</div>
                         <div class="city">Jakarta</div>
                         <div class="airport">CGK Terminal 2</div>
                     </div>
@@ -925,7 +865,7 @@
                         <div class="stops">Langsung</div>
                     </div>
                     <div class="arrival">
-                        <div class="time">14:55</div>
+                        <div class="time">13:10</div>
                         <div class="city">Bali</div>
                         <div class="airport">DPS Terminal 1</div>
                     </div>
@@ -933,50 +873,53 @@
 
                 <div class="flight-footer">
                     <div class="facilities">
-                        <div class="facility-icon available" title="Bagasi 15kg">
+                        <div class="facility-icon available" title="Bagasi 25kg">
                             <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M17 6h-2V3c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v3H7c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2 0 .55.45 1 1 1s1-.45 1-1h6c0 .55.45 1 1 1s1-.45 1-1c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9.5 18H8V9h1.5v9zm3.25 0h-1.5V9h1.5v9zm3.25 0H14V9h1.5v9zM11 6V4h2v2h-2z"/>
                             </svg>
                         </div>
-                        <div class="facility-icon unavailable" title="Tidak ada makanan">
+                        <div class="facility-icon available" title="Makanan">
                             <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-.78-.78-2.05-.78-2.83 0-.78.78-.78 2.05 0 2.83l6.02 7.01zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
                             </svg>
                         </div>
-                        <div class="facility-icon unavailable" title="Tidak ada WiFi">
+                        <div class="facility-icon available" title="WiFi">
                             <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
                             </svg>
                         </div>
                     </div>
                     <div class="price-info">
-                        <div class="price">Rp 850.000</div>
+                        <div class="price">Rp 1.500.000</div>
                         <div class="price-per">/orang</div>
+                        <div class="price-calculation">Dedicated: Harga input Ron cost</div>
                     </div>
                 </div>
             `;
             
-            flightResults.appendChild(newFlight);
+            flightResults.appendChild(newFlight1);
             
             // Update jumlah hasil pencarian
             const visibleCount = document.querySelectorAll('.flight-card').length;
             document.querySelector('.results-count').textContent = `${visibleCount} penerbangan ditemukan`;
         }
 
-        // Event listener untuk infinite scroll
-        window.addEventListener('scroll', function() {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
-                // Cek apakah sudah ada loading animation untuk menghindari duplikasi
-                if (!document.querySelector('.loading-card')) {
-                    showLoadingAnimation();
-                }
+        // Event listener untuk tombol lanjutkan
+        document.getElementById('continueBtn').addEventListener('click', function() {
+            if (selectedFlight) {
+                alert('Penerbangan berhasil dipilih! Silakan lanjutkan ke langkah berikutnya.');
+                // Di sini biasanya akan ada redirect ke halaman berikutnya
+                // window.location.href = 'passenger-details.html';
             }
         });
 
-        // Event listener untuk tombol Lanjutkan
-        document.getElementById('continueBtn').addEventListener('click', function() {
-            if (!this.disabled) {
-                window.location.href = '/booking';
+        // Simulasikan scroll untuk memuat lebih banyak penerbangan
+        window.addEventListener('scroll', function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+                // Cegah multiple loading
+                if (!document.querySelector('.loading-card')) {
+                    showLoadingAnimation();
+                }
             }
         });
     </script>

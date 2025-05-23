@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return view('halaman-utama.index');
+    return view('halaman-utama.home');
 });
 
 Route::get('/pencarian', function () {
@@ -32,4 +32,12 @@ Route::get('/booking', function () {
 
 Route::get('/payment', function () {
     return view('halaman-utama.payment');
+});
+
+Route::get('/profile', function () {
+    return view('halaman-utama.profile');
+});
+
+Route::get('/tiket', function () {
+    return view('halaman-utama.tiket');
 });

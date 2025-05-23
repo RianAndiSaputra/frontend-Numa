@@ -604,6 +604,139 @@
             box-shadow: 0 5px 15px rgba(139,0,0,0.3);
         }
 
+        /* Passenger List */
+        .passenger-list {
+            margin-bottom: 20px;
+        }
+
+        .passenger-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .passenger-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .passenger-details {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .remove-passenger {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #dc3545;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .add-passenger-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: #f8f9fa;
+            border: 1px dashed #adb5bd;
+            border-radius: 10px;
+            color: #8B0000;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .add-passenger-btn:hover {
+            background: #e9ecef;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 15px;
+            padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            color: #495057;
+        }
+
+        .btn-primary {
+            background: #8B0000;
+            border: none;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #A0001C;
+        }
+
         @media (max-width: 375px) {
             .container {
                 max-width: 100%;
@@ -695,54 +828,16 @@
                 <span>Data Penumpang</span>
             </div>
             
-            <div class="form-group">
-                <label class="form-label">Titel</label>
-                <div class="select-wrapper">
-                    <select class="form-select" id="title">
-                        <option value="">Pilih titel</option>
-                        <option value="mr">Tn.</option>
-                        <option value="mrs">Ny.</option>
-                        <option value="ms">Nn.</option>
-                    </select>
-                </div>
+            <div class="passenger-list" id="passengerList">
+                <!-- Passenger items will be added here dynamically -->
             </div>
             
-            <div class="form-row">
-                <div class="form-col">
-                    <div class="form-group">
-                        <label class="form-label">Nama Depan</label>
-                        <input type="text" class="form-control" placeholder="Nama depan">
-                    </div>
-                </div>
-                <div class="form-col">
-                    <div class="form-group">
-                        <label class="form-label">Nama Belakang</label>
-                        <input type="text" class="form-control" placeholder="Nama belakang">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Tanggal Lahir</label>
-                <input type="date" class="form-control">
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Kewarganegaraan</label>
-                <div class="select-wrapper">
-                    <select class="form-select">
-                        <option value="">Pilih negara</option>
-                        <option value="id">Indonesia</option>
-                        <option value="my">Malaysia</option>
-                        <option value="sg">Singapura</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Nomor Paspor/KTP</label>
-                <input type="text" class="form-control" placeholder="Masukkan nomor ID">
-            </div>
+            <button class="add-passenger-btn" onclick="openAddPassengerModal()">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+                Tambah Penumpang
+            </button>
         </div>
 
         <!-- Contact Info -->
@@ -754,12 +849,12 @@
             
             <div class="form-group">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" placeholder="email@contoh.com">
+                <input type="email" class="form-control" id="email" placeholder="email@contoh.com">
             </div>
             
             <div class="form-group">
                 <label class="form-label">Nomor Telepon</label>
-                <input type="tel" class="form-control" placeholder="+62 812-3456-7890">
+                <input type="tel" class="form-control" id="phone" placeholder="+62 812-3456-7890">
             </div>
             
             <p class="info-note">
@@ -825,7 +920,7 @@
                     </div>
                 </div>
                 <label class="toggle-switch">
-                    <input type="checkbox">
+                    <input type="checkbox" id="insuranceToggle">
                     <span class="slider"></span>
                 </label>
             </div>
@@ -869,6 +964,59 @@
         </div>
     </div>
 
+    <!-- Add Passenger Modal -->
+    <div class="modal" id="addPassengerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Penumpang</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Titel</label>
+                <div class="select-wrapper">
+                    <select class="form-select" id="passengerTitle">
+                        <option value="">Pilih titel</option>
+                        <option value="Tn">Tn.</option>
+                        <option value="Ny">Ny.</option>
+                        <option value="Nn">Nn.</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Nama Lengkap</label>
+                <input type="text" class="form-control" id="passengerName" placeholder="Nama lengkap">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Jenis Kelamin</label>
+                <div class="select-wrapper">
+                    <select class="form-select" id="passengerGender">
+                        <option value="">Pilih jenis kelamin</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Nomor Paspor/KTP</label>
+                <input type="text" class="form-control" id="passengerId" placeholder="Masukkan nomor ID">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Tanggal Lahir</label>
+                <input type="date" class="form-control" id="passengerDob">
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                <button class="btn btn-primary" onclick="addPassenger()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Fungsi untuk kembali ke halaman sebelumnya
         function goBack() {
@@ -892,13 +1040,16 @@
 
         // Fungsi validasi form
         function validateForm() {
-            const title = document.getElementById('title').value;
-            const firstName = document.querySelector('input[placeholder="Nama depan"]').value;
-            const lastName = document.querySelector('input[placeholder="Nama belakang"]').value;
-            const email = document.querySelector('input[type="email"]').value;
-            const phone = document.querySelector('input[type="tel"]').value;
+            const passengerList = document.getElementById('passengerList').children;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
             
-            if(!title || !firstName || !lastName || !email || !phone) {
+            if(passengerList.length === 0) {
+                alert('Harap tambahkan minimal 1 penumpang!');
+                return false;
+            }
+            
+            if(!email || !phone) {
                 alert('Harap lengkapi semua data yang diperlukan!');
                 return false;
             }
@@ -928,14 +1079,85 @@
         });
 
         // Toggle untuk asuransi
-        document.querySelector('.toggle-switch input').addEventListener('change', function() {
+        document.getElementById('insuranceToggle').addEventListener('change', function() {
             updatePriceSummary();
         });
 
         // Fungsi untuk update ringkasan harga
         function updatePriceSummary() {
-            // Logika untuk mengupdate harga berdasarkan pilihan tambahan
-            // Diimplementasikan sesuai kebutuhan bisnis
+            // Implementasi update harga berdasarkan pilihan
+        }
+
+        // Fungsi untuk modal penumpang
+        function openAddPassengerModal() {
+            document.getElementById('addPassengerModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('addPassengerModal').style.display = 'none';
+            // Reset form
+            document.getElementById('passengerTitle').value = '';
+            document.getElementById('passengerName').value = '';
+            document.getElementById('passengerGender').value = '';
+            document.getElementById('passengerId').value = '';
+            document.getElementById('passengerDob').value = '';
+        }
+
+        function addPassenger() {
+            const title = document.getElementById('passengerTitle').value;
+            const name = document.getElementById('passengerName').value;
+            const gender = document.getElementById('passengerGender').value;
+            const id = document.getElementById('passengerId').value;
+            const dob = document.getElementById('passengerDob').value;
+            
+            if(!title || !name || !gender || !id || !dob) {
+                alert('Harap lengkapi semua data penumpang!');
+                return;
+            }
+            
+            // Format tanggal lahir untuk tampilan
+            const dobDate = new Date(dob);
+            const formattedDob = dobDate.toLocaleDateString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            // Buat elemen penumpang baru
+            const passengerItem = document.createElement('div');
+            passengerItem.className = 'passenger-item';
+            passengerItem.innerHTML = `
+                <button class="remove-passenger" onclick="removePassenger(this)">&times;</button>
+                <div class="passenger-name">${title} ${name}</div>
+                <div class="passenger-details">
+                    <div>${gender} • ${formattedDob}</div>
+                    <div>ID: ${id}</div>
+                </div>
+            `;
+            
+            // Tambahkan ke daftar penumpang
+            document.getElementById('passengerList').appendChild(passengerItem);
+            
+            // Tutup modal
+            closeModal();
+            
+            // Update ringkasan harga
+            updatePriceSummary();
+        }
+
+        function removePassenger(button) {
+            if(confirm('Hapus penumpang ini?')) {
+                button.parentElement.remove();
+                updatePriceSummary();
+            }
+        }
+
+        // Tutup modal saat klik di luar konten modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('addPassengerModal');
+            if(event.target === modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
