@@ -41,3 +41,15 @@ Route::get('/profile', function () {
 Route::get('/tiket', function () {
     return view('halaman-utama.tiket');
 });
+
+Route::get('/kebijakan', function () {
+    return view('halaman-utama.kebijakan');
+});
+
+Route::get('/tentang', function () {
+    return view('halaman-utama.tentang');
+});
+
+Route::get('/notifikasi', function () {
+    return view('halaman-utama.notifikasi');
+});

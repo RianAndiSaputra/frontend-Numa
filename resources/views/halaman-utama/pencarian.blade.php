@@ -4,7 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Pencarian - SkyBooking</title>
+    <link href="https://unpkg.com/lucide@latest/dist/lucide.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #8B0000;
+            --secondary-color: #A0001C;
+            --accent-color: #FF6B6B;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,34 +28,54 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            min-height: 100vh;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 375px;
+            max-width: 100%;
+            width: 100%;
             margin: 0 auto;
-            background: white;
+            background: var(--white);
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow-x: hidden;
         }
 
         /* Header */
-        .header {
-            background: linear-gradient(135deg, #8B0000, #A0001C);
-            color: white;
-            padding: 50px 20px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .main-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 60px 20px 30px;
+            position: relative;
+            z-index: 10;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .main-header::after {
+            content: '';
+            position: absolute;
+            bottom: -24px;
+            left: 0;
+            right: 0;
+            height: 24px;
+            background: var(--white);
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            z-index: 1;
         }
 
         .header-top {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
         }
 
         .back-btn {
@@ -54,8 +89,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
         }
 
         .back-btn:hover {
@@ -63,13 +98,10 @@
         }
 
         .header-title {
-            flex: 1;
-        }
-
-        .header-title h1 {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 2px;
+            flex: 1;
+            text-align: center;
         }
 
         .route-info {
@@ -77,7 +109,9 @@
             opacity: 0.9;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
+            margin-top: 8px;
         }
 
         .filter-btn {
@@ -91,18 +125,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         /* Flight Categories */
         .flight-categories {
-            background: white;
-            padding: 20px;
+            background: var(--white);
+            padding: 20px 15px;
             border-bottom: 1px solid #e9ecef;
             position: sticky;
-            top: 90px;
+            top: 0;
             z-index: 99;
-            
         }
 
         .category-tabs {
@@ -111,6 +149,7 @@
             overflow-x: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
+            padding-bottom: 5px;
         }
 
         .category-tabs::-webkit-scrollbar {
@@ -119,22 +158,22 @@
 
         .category-tab {
             min-width: 100px;
-            padding: 12px 20px;
+            padding: 10px 15px;
             border: 2px solid #e9ecef;
             border-radius: 25px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             font-size: 14px;
             font-weight: 500;
             white-space: nowrap;
             position: relative;
-            margin-top: 35px
+            margin-top: 10px
         }
 
         .category-tab.active {
-            border-color: #8B0000;
-            background: #8B0000;
+            border-color: var(--primary-color);
+            background: var(--primary-color);
             color: white;
         }
 
@@ -142,7 +181,7 @@
             position: absolute;
             top: -8px;
             right: -8px;
-            background: #ff4757;
+            background: var(--accent-color);
             color: white;
             border-radius: 50%;
             width: 20px;
@@ -156,64 +195,67 @@
 
         /* Sort Bar */
         .sort-bar {
-            background: white;
-            padding: 15px 20px;
+            background: var(--white);
+            padding: 15px;
             border-bottom: 1px solid #e9ecef;
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
-            gap: 35px;
-            margin-top: 20px
+            gap: 10px;
         }
 
         .results-count {
             font-size: 14px;
-            color: #6c757d;
-            flex: 1;
+            color: var(--text-light);
         }
 
         .sort-options {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .sort-btn {
-            padding: 10px 10px;
+            padding: 8px 12px;
             border: 1px solid #e9ecef;
             border-radius: 20px;
             background: white;
             cursor: pointer;
             font-size: 12px;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            white-space: nowrap;
         }
 
         .sort-btn.active {
-            background: #8B0000;
+            background: var(--primary-color);
             color: white;
-            border-color: #8B0000;
+            border-color: var(--primary-color);
         }
 
         /* Flight Results */
         .flight-results {
-            padding: 20px;
+            padding: 15px;
             padding-bottom: 100px;
         }
 
         .flight-card {
-            background: white;
+            background: var(--white);
             border-radius: 15px;
-            padding: 20px;
+            padding: 16px;
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
             cursor: pointer;
         }
 
         .flight-card:hover {
+            box-shadow: var(--shadow-md);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            border-color: #8B0000;
+        }
+
+        .flight-card.selected {
+            border: 2px solid var(--primary-color);
+            background: rgba(139, 0, 0, 0.03);
         }
 
         .flight-header {
@@ -230,9 +272,9 @@
         }
 
         .airline-logo {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #8B0000, #A0001C);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -245,13 +287,13 @@
         .airline-details h3 {
             font-size: 16px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-dark);
             margin-bottom: 2px;
         }
 
         .flight-number {
             font-size: 12px;
-            color: #6c757d;
+            color: var(--text-light);
         }
 
         .flight-type {
@@ -280,7 +322,7 @@
         .flight-route {
             display: flex;
             align-items: center;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .departure, .arrival {
@@ -288,15 +330,15 @@
         }
 
         .time {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            color: #2c3e50;
+            color: var(--text-dark);
             margin-bottom: 4px;
         }
 
         .city {
             font-size: 14px;
-            color: #6c757d;
+            color: var(--text-light);
             margin-bottom: 2px;
         }
 
@@ -310,12 +352,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0 20px;
+            margin: 0 10px;
         }
 
         .duration {
             font-size: 12px;
-            color: #6c757d;
+            color: var(--text-light);
             margin-bottom: 8px;
         }
 
@@ -327,17 +369,9 @@
             border-radius: 1px;
         }
 
-        .path-line::after {
-            content: '✈️';
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            font-size: 12px;
-        }
-
         .stops {
             font-size: 11px;
-            color: #8B0000;
+            color: var(--primary-color);
             margin-top: 4px;
             font-weight: 500;
         }
@@ -348,24 +382,6 @@
             align-items: center;
             padding-top: 15px;
             border-top: 1px solid #f8f9fa;
-        }
-
-        .price-info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #8B0000;
-            margin-bottom: 2px;
-        }
-
-        .price-per {
-            font-size: 11px;
-            color: #6c757d;
         }
 
         .facilities {
@@ -394,21 +410,102 @@
             color: #721c24;
         }
 
-        /* Price Calculation Info */
+        .price-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 2px;
+        }
+
+        .price-per {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
         .price-calculation {
             font-size: 11px;
-            color: #6c757d;
+            color: var(--text-light);
             margin-top: 5px;
             text-align: right;
         }
 
+        /* Bottom Action */
+        .bottom-action {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: var(--white);
+            padding: 15px;
+            border-top: 1px solid #e9ecef;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            box-sizing: border-box;
+        }
+
+        .selected-flight {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .selected-info {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .selected-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .continue-btn {
+            width: calc(100% - 30px);
+            max-width: 500px;
+            display: block;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139,0,0,0.3);
+        }
+
+        .continue-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         /* Loading Animation */
         .loading-card {
-            background: white;
+            background: var(--white);
             border-radius: 15px;
-            padding: 20px;
+            padding: 16px;
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-sm);
         }
 
         .skeleton {
@@ -429,103 +526,58 @@
         }
 
         .skeleton-circle {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
         }
 
-        /* Bottom Button */
+        /* Responsive Adjustments */
+        @media (min-width: 500px) {
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .flight-results {
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+        
+        .flight-card {
+            padding: 18px;
+        }
+        
         .bottom-action {
-            position: fixed;
-            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 375px;
-            background: white;
-            padding: 20px;
-            border-top: 1px solid #e9ecef;
+            max-width: 500px;
             border-radius: 25px 25px 0 0;
         }
+    }
 
-        .selected-flight {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .selected-info {
-            font-size: 14px;
-            color: #6c757d;
-        }
-
-        .selected-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #8B0000;
-        }
-
-        .continue-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #8B0000, #A0001C);
-            color: white;
-            border: none;
-            padding: 18px;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .continue-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139,0,0,0.3);
-        }
-
-        .continue-btn:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        @media (max-width: 375px) {
-            .container {
-                max-width: 100%;
-            }
-            
-            .bottom-action {
-                width: 100%;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header">
+        <div class="main-header">
             <div class="header-top">
                 <button class="back-btn" onclick="goBack()">
-                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-                    </svg>
+                    <i data-lucide="arrow-left"></i>
                 </button>
                 <div class="header-title">
-                    <h1>Pilih Penerbangan</h1>
+                    Pilih Penerbangan
                     <div class="route-info">
                         <span>Jakarta (CGK)</span>
-                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M13.5 21L12 19.5 10.5 21 7.5 18 6 19.5 4.5 18 7.5 15 6 13.5 7.5 12 10.5 15 12 13.5 13.5 15 16.5 12 18 13.5 16.5 15 19.5 18 18 19.5 16.5 21 13.5 18z"/>
-                        </svg>
+                        <i data-lucide="arrow-right-left" width="12" height="12"></i>
                         <span>Bali (DPS)</span>
                         <span>• 25 Des 2024</span>
                     </div>
                 </div>
                 <button class="filter-btn" onclick="toggleFilter()">
-                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
-                    </svg>
+                    <i data-lucide="filter"></i>
                 </button>
             </div>
         </div>
@@ -594,19 +646,13 @@
                 <div class="flight-footer">
                     <div class="facilities">
                         <div class="facility-icon available" title="Bagasi 20kg">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17 6h-2V3c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v3H7c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2 0 .55.45 1 1 1s1-.45 1-1h6c0 .55.45 1 1 1s1-.45 1-1c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9.5 18H8V9h1.5v9zm3.25 0h-1.5V9h1.5v9zm3.25 0H14V9h1.5v9zM11 6V4h2v2h-2z"/>
-                            </svg>
+                            <i data-lucide="luggage" width="12" height="12"></i>
                         </div>
                         <div class="facility-icon available" title="Makanan">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-.78-.78-2.05-.78-2.83 0-.78.78-.78 2.05 0 2.83l6.02 7.01zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
-                            </svg>
+                            <i data-lucide="utensils" width="12" height="12"></i>
                         </div>
                         <div class="facility-icon available" title="WiFi">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
-                            </svg>
+                            <i data-lucide="wifi" width="12" height="12"></i>
                         </div>
                     </div>
                     <div class="price-info">
@@ -651,19 +697,13 @@
                 <div class="flight-footer">
                     <div class="facilities">
                         <div class="facility-icon available" title="Bagasi 15kg">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17 6h-2V3c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v3H7c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2 0 .55.45 1 1 1s1-.45 1-1h6c0 .55.45 1 1 1s1-.45 1-1c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9.5 18H8V9h1.5v9zm3.25 0h-1.5V9h1.5v9zm3.25 0H14V9h1.5v9zM11 6V4h2v2h-2z"/>
-                            </svg>
+                            <i data-lucide="luggage" width="12" height="12"></i>
                         </div>
                         <div class="facility-icon unavailable" title="Tidak ada makanan">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-.78-.78-2.05-.78-2.83 0-.78.78-.78 2.05 0 2.83l6.02 7.01zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
-                            </svg>
+                            <i data-lucide="utensils-crossed" width="12" height="12"></i>
                         </div>
                         <div class="facility-icon unavailable" title="Tidak ada WiFi">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
-                            </svg>
+                            <i data-lucide="wifi-off" width="12" height="12"></i>
                         </div>
                     </div>
                     <div class="price-info">
@@ -687,7 +727,11 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
         // Fungsi untuk kembali ke halaman sebelumnya
         function goBack() {
             window.history.back();
@@ -703,12 +747,12 @@
         
         function selectFlight(flightCard) {
             // Hapus seleksi sebelumnya
-            if (selectedFlight) {
-                selectedFlight.style.borderColor = 'transparent';
-            }
+            document.querySelectorAll('.flight-card').forEach(card => {
+                card.classList.remove('selected');
+            });
             
             // Tambahkan seleksi baru
-            flightCard.style.borderColor = '#8B0000';
+            flightCard.classList.add('selected');
             selectedFlight = flightCard;
             
             // Update informasi yang dipilih
@@ -800,7 +844,25 @@
             });
         });
 
-                // Animasi loading untuk penerbangan tambahan
+        // Event listener untuk tombol lanjutkan
+        document.getElementById('continueBtn').addEventListener('click', function() {
+            if (selectedFlight) {
+                // Redirect ke halaman booking
+                window.location.href = '/booking';
+            }
+        });
+
+        // Simulasikan scroll untuk memuat lebih banyak penerbangan
+        window.addEventListener('scroll', function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+                // Cegah multiple loading
+                if (!document.querySelector('.loading-card')) {
+                    showLoadingAnimation();
+                }
+            }
+        });
+
+        // Animasi loading untuk penerbangan tambahan
         function showLoadingAnimation() {
             const loadingCard = document.createElement('div');
             loadingCard.className = 'loading-card';
@@ -833,7 +895,7 @@
         function addAdditionalFlights() {
             const flightResults = document.getElementById('flightResults');
             
-            // Flight Card 4 - Dedicated
+            // Flight Card 3 - Dedicated
             const newFlight1 = document.createElement('div');
             newFlight1.className = 'flight-card';
             newFlight1.setAttribute('data-category', 'dedicated');
@@ -874,19 +936,13 @@
                 <div class="flight-footer">
                     <div class="facilities">
                         <div class="facility-icon available" title="Bagasi 25kg">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17 6h-2V3c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v3H7c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2 0 .55.45 1 1 1s1-.45 1-1h6c0 .55.45 1 1 1s1-.45 1-1c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9.5 18H8V9h1.5v9zm3.25 0h-1.5V9h1.5v9zm3.25 0H14V9h1.5v9zM11 6V4h2v2h-2z"/>
-                            </svg>
+                            <i data-lucide="luggage" width="12" height="12"></i>
                         </div>
                         <div class="facility-icon available" title="Makanan">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-.78-.78-2.05-.78-2.83 0-.78.78-.78 2.05 0 2.83l6.02 7.01zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
-                            </svg>
+                            <i data-lucide="utensils" width="12" height="12"></i>
                         </div>
                         <div class="facility-icon available" title="WiFi">
-                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
-                            </svg>
+                            <i data-lucide="wifi" width="12" height="12"></i>
                         </div>
                     </div>
                     <div class="price-info">
@@ -899,29 +955,13 @@
             
             flightResults.appendChild(newFlight1);
             
+            // Initialize Lucide icons for the new elements
+            lucide.createIcons();
+            
             // Update jumlah hasil pencarian
             const visibleCount = document.querySelectorAll('.flight-card').length;
             document.querySelector('.results-count').textContent = `${visibleCount} penerbangan ditemukan`;
         }
-
-        // Event listener untuk tombol lanjutkan
-        document.getElementById('continueBtn').addEventListener('click', function() {
-            if (selectedFlight) {
-                alert('Penerbangan berhasil dipilih! Silakan lanjutkan ke langkah berikutnya.');
-                // Di sini biasanya akan ada redirect ke halaman berikutnya
-                // window.location.href = 'passenger-details.html';
-            }
-        });
-
-        // Simulasikan scroll untuk memuat lebih banyak penerbangan
-        window.addEventListener('scroll', function() {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
-                // Cegah multiple loading
-                if (!document.querySelector('.loading-card')) {
-                    showLoadingAnimation();
-                }
-            }
-        });
     </script>
 </body>
 </html>

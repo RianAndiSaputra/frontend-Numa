@@ -2,8 +2,10 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SkyBooking - Pesan Tiket Pesawat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Numa</title>
+    <link href="https://unpkg.com/lucide@latest/dist/lucide.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --primary-color: #8B0000;
@@ -99,6 +101,24 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(10px);
+        }
+
+        /* Notification Icon */
+        .notification-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .notification-icon:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         /* Search Form */
@@ -203,6 +223,7 @@
             outline: none;
             min-width: 0;
             font-weight: 500;
+            cursor: pointer;
         }
 
         .search-btn {
@@ -252,6 +273,7 @@
             overflow-x: auto;
             padding-bottom: 10px;
             scrollbar-width: none;
+            position: relative;
         }
 
         .routes-container::-webkit-scrollbar {
@@ -292,6 +314,33 @@
         .route-price span {
             color: var(--accent-color);
             font-weight: 700;
+        }
+
+        /* Route Navigation Buttons */
+        .route-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 2;
+            border: none;
+            color: var(--primary-color);
+        }
+
+        .route-prev {
+            left: -15px;
+        }
+
+        .route-next {
+            right: -15px;
         }
 
         /* Quick Actions */
@@ -478,10 +527,9 @@
             max-width: 500px;
             margin: 0 auto;
             background: var(--white);
-            padding: 12px 20px 20px;
+            padding: 12px 20px;
             border-top: 1px solid var(--bg-gray);
-            border-radius: 25px 25px 0 0;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
             z-index: 10;
         }
 
@@ -498,6 +546,14 @@
             cursor: pointer;
             transition: var(--transition);
             position: relative;
+            padding: 5px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
         }
 
         .nav-item.active .nav-icon {
@@ -507,7 +563,7 @@
 
         .nav-item.active .nav-label {
             color: var(--primary-color);
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .nav-icon {
@@ -523,30 +579,139 @@
         }
 
         .nav-label {
-            font-size: clamp(10px, 2.5vw, 11px);
+            font-size: 11px;
             color: var(--text-light);
-            font-weight: 600;
+            font-weight: 500;
             transition: var(--transition);
-        }
-
-        .nav-badge {
-            position: absolute;
-            top: -2px;
-            right: 5px;
-            background: var(--accent-color);
-            color: white;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
         }
 
         .content-wrapper {
             padding-bottom: 90px;
+        }
+
+        /* Passenger Selector Modal */
+        .passenger-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .passenger-content {
+            background: var(--white);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px 20px 0 0;
+            padding: 25px;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.2);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .passenger-modal.active {
+            display: flex;
+        }
+
+        .passenger-modal.active .passenger-content {
+            transform: translateY(0);
+        }
+
+        .passenger-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .passenger-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .close-passenger {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        .passenger-type {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .passenger-info {
+            flex: 1;
+        }
+
+        .passenger-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+
+        .passenger-desc {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .passenger-counter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .passenger-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--bg-gray);
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .passenger-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .passenger-count {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .passenger-submit {
+            width: 100%;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .passenger-submit:hover {
+            background: var(--secondary-color);
         }
 
         /* Responsive adjustments */
@@ -688,7 +853,6 @@
             font-weight: 600;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -700,10 +864,9 @@
                         <h1>Selamat Datang!</h1>
                         <p>Mau terbang kemana hari ini?</p>
                     </div>
-                    <div class="profile-icon">
-                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
+                    <!-- Notification Icon -->
+                    <div class="notification-icon" onclick="window.location.href='/notifikasi'">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
                     </div>
                 </div>
             </div>
@@ -711,8 +874,8 @@
             <!-- Search Form -->
             <div class="search-card">
                 <div class="trip-type">
-                    <div class="trip-option active">One Way</div>
-                    <div class="trip-option">Return</div>
+                    <div class="trip-option active" id="one-way">One Way</div>
+                    <div class="trip-option" id="return">Return</div>
                 </div>
 
                 <div class="location-input">
@@ -750,16 +913,64 @@
                 </div>
 
                 <div class="date-passenger">
-                    <input type="date" class="date-field" value="2024-12-25">
-                    <input type="text" class="passenger-field" placeholder="1 Penumpang" readonly>
+                    <input type="date" class="date-field" id="departure-date" value="2024-12-25">
+                    <input type="text" class="passenger-field" id="passenger-input" placeholder="1 Penumpang" readonly>
                 </div>
 
                 <a href="/pencarian" class="search-btn" role="button">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
-                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5z"/>
                     </svg>
                     Cari Penerbangan
                 </a>
+            </div>
+
+            <!-- Passenger Selector Modal -->
+            <div class="passenger-modal" id="passenger-modal">
+                <div class="passenger-content">
+                    <div class="passenger-header">
+                        <div class="passenger-title">Pilih Jumlah Penumpang</div>
+                        <button class="close-passenger" id="close-passenger">&times;</button>
+                    </div>
+                    
+                    <div class="passenger-type">
+                        <div class="passenger-info">
+                            <div class="passenger-name">Dewasa</div>
+                            <div class="passenger-desc">12 tahun ke atas</div>
+                        </div>
+                        <div class="passenger-counter">
+                            <button class="passenger-btn" id="adult-minus" disabled>-</button>
+                            <span class="passenger-count" id="adult-count">1</span>
+                            <button class="passenger-btn" id="adult-plus">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="passenger-type">
+                        <div class="passenger-info">
+                            <div class="passenger-name">Anak-anak</div>
+                            <div class="passenger-desc">2 - 11 tahun</div>
+                        </div>
+                        <div class="passenger-counter">
+                            <button class="passenger-btn" id="child-minus" disabled>-</button>
+                            <span class="passenger-count" id="child-count">0</span>
+                            <button class="passenger-btn" id="child-plus">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="passenger-type">
+                        <div class="passenger-info">
+                            <div class="passenger-name">Bayi</div>
+                            <div class="passenger-desc">Di bawah 2 tahun</div>
+                        </div>
+                        <div class="passenger-counter">
+                            <button class="passenger-btn" id="infant-minus" disabled>-</button>
+                            <span class="passenger-count" id="infant-count">0</span>
+                            <button class="passenger-btn" id="infant-plus">+</button>
+                        </div>
+                    </div>
+                    
+                    <button class="passenger-submit" id="passenger-submit">Simpan</button>
+                </div>
             </div>
 
             <!-- Popular Routes -->
@@ -771,6 +982,9 @@
                     Rute Populer
                 </h2>
                 <div class="routes-container">
+                    <button class="route-nav-btn route-prev">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
                     <div class="route-card">
                         <div class="route-title">Ternate → Labuha</div>
                         <div class="route-price">Mulai dari <span>Rp 499K</span></div>
@@ -787,6 +1001,17 @@
                         <div class="route-title">Surabaya → Karimun</div>
                         <div class="route-price">Mulai dari <span>Rp 799K</span></div>
                     </div>
+                    <div class="route-card">
+                        <div class="route-title">Labuha → Morotai</div>
+                        <div class="route-price">Mulai dari <span>Rp 650K</span></div>
+                    </div>
+                    <div class="route-card">
+                        <div class="route-title">Weda → Buli</div>
+                        <div class="route-price">Mulai dari <span>Rp 450K</span></div>
+                    </div>
+                    <button class="route-nav-btn route-next">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
                 </div>
             </div>
 
@@ -799,23 +1024,7 @@
                     Layanan Cepat
                 </h2>
                 <div class="action-grid">
-                    <div class="action-card" role="button" tabindex="0">
-                        <div class="action-icon">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M21 9V7l-4-4H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h4v-2h8v2h4c1.1 0 2-.9 2-2v-6z"/>
-                            </svg>
-                        </div>
-                        <div class="action-title">Check-in</div>
-                    </div>
-                    <div class="action-card" role="button" tabindex="0">
-                        <div class="action-icon">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                            </svg>
-                        </div>
-                        <div class="action-title">Status</div>
-                    </div>
-                    <div class="action-card" role="button" tabindex="0">
+                    <div class="action-card" role="button" tabindex="0" onclick="window.location.href='/tiket'">
                         <div class="action-icon">
                             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z"/>
@@ -823,7 +1032,7 @@
                         </div>
                         <div class="action-title">Booking</div>
                     </div>
-                    <div class="action-card" role="button" tabindex="0">
+                    <div class="action-card" role="button" tabindex="0" onclick="window.open('https://wa.me/6285727122918', '_blank')">
                         <div class="action-icon">
                             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -880,27 +1089,27 @@
                 </h2>
                 <div class="airline-scroll">
                     <div class="airline-card">
-                        <img src="https://via.placeholder.com/50x30/8B0000/FFFFFF?text=GA" alt="Garuda" class="airline-logo">
+                        <img src="/images/garuda.png" alt="Garuda" class="airline-logo">
                         <div class="airline-name">Garuda</div>
                     </div>
                     <div class="airline-card">
-                        <img src="https://via.placeholder.com/50x30/003580/FFFFFF?text=LION" alt="Lion Air" class="airline-logo">
+                        <img src="/images/lion.png" alt="Lion Air" class="airline-logo">
                         <div class="airline-name">Lion Air</div>
                     </div>
                     <div class="airline-card">
-                        <img src="https://via.placeholder.com/50x30/FF0000/FFFFFF?text=SJ" alt="Sriwijaya" class="airline-logo">
+                        <img src="/images/sriwijaya.png" alt="Sriwijaya" class="airline-logo">
                         <div class="airline-name">Sriwijaya</div>
                     </div>
                     <div class="airline-card">
-                        <img src="https://via.placeholder.com/50x30/0066CC/FFFFFF?text=CA" alt="Citilink" class="airline-logo">
+                        <img src="/images/citilink.jpg" alt="Citilink" class="airline-logo">
                         <div class="airline-name">Citilink</div>
                     </div>
                     <div class="airline-card">
-                        <img src="https://via.placeholder.com/50x30/FF9900/FFFFFF?text=XA" alt="Xpress Air" class="airline-logo">
-                        <div class="airline-name">Xpress Air</div>
+                        <img src="/images/super.png" alt="Super Air Jet" class="airline-logo">
+                        <div class="airline-name">Super Air Jet</div>
                     </div>
                     <div class="airline-card">
-                        <img src="https://via.placeholder.com/50x30/005BAC/FFFFFF?text=WA" alt="Wings Air" class="airline-logo">
+                        <img src="/images/wings.png" alt="Wings Air" class="airline-logo">
                         <div class="airline-name">Wings Air</div>
                     </div>
                 </div>
@@ -910,46 +1119,98 @@
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
             <div class="nav-items">
-                <div class="nav-item active" role="button" tabindex="0">
+                <a href="/home" class="nav-item active">
                     <div class="nav-icon">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                        </svg>
+                        <i data-lucide="home"></i>
                     </div>
                     <div class="nav-label">Beranda</div>
-                </div>
-                <div class="nav-item" role="button" tabindex="0">
+                </a>
+                <a href="/tiket" class="nav-item">
                     <div class="nav-icon">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
-                        </svg>
+                        <i data-lucide="ticket"></i>
                     </div>
-                    <div class="nav-label">Pesanan</div>
-                </div>
-                <div class="nav-item" role="button" tabindex="0">
+                    <div class="nav-label">Carter</div>
+                </a>
+                <a href="/profile" class="nav-item">
                     <div class="nav-icon">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-label">Promo</div>
-                </div>
-                <div class="nav-item" role="button" tabindex="0">
-                    <div class="nav-icon">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
+                        <i data-lucide="user"></i>
                     </div>
                     <div class="nav-label">Profil</div>
-                    <div class="nav-badge">3</div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
 
     <script>
-        // Custom select dropdown functionality
+        lucide.createIcons();
+
+        // Functionality for route navigation buttons
         document.addEventListener('DOMContentLoaded', function() {
+            const routesContainer = document.querySelector('.routes-container');
+            const routeCards = document.querySelectorAll('.route-card');
+            const routePrev = document.querySelector('.route-prev');
+            const routeNext = document.querySelector('.route-next');
+            const cardWidth = 150; // Width of each route card
+            const gap = 12; // Gap between cards
+            let scrollPosition = 0;
+            const maxScroll = (routeCards.length * (cardWidth + gap)) - routesContainer.offsetWidth;
+
+            // Hide prev button initially
+            routePrev.style.display = 'none';
+
+            // Next button click handler
+            routeNext.addEventListener('click', function() {
+                scrollPosition += cardWidth + gap;
+                if (scrollPosition > maxScroll) scrollPosition = maxScroll;
+                routesContainer.scrollTo({
+                    left: scrollPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Show/hide buttons based on scroll position
+                routePrev.style.display = 'flex';
+                if (scrollPosition >= maxScroll) {
+                    routeNext.style.display = 'none';
+                }
+            });
+
+            // Prev button click handler
+            routePrev.addEventListener('click', function() {
+                scrollPosition -= cardWidth + gap;
+                if (scrollPosition < 0) scrollPosition = 0;
+                routesContainer.scrollTo({
+                    left: scrollPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Show/hide buttons based on scroll position
+                routeNext.style.display = 'flex';
+                if (scrollPosition <= 0) {
+                    routePrev.style.display = 'none';
+                }
+            });
+
+            // Trip type selection functionality
+            const oneWayBtn = document.getElementById('one-way');
+            const returnBtn = document.getElementById('return');
+            const departureDateField = document.getElementById('departure-date');
+
+            oneWayBtn.addEventListener('click', function() {
+                oneWayBtn.classList.add('active');
+                returnBtn.classList.remove('active');
+            });
+
+            returnBtn.addEventListener('click', function() {
+                returnBtn.classList.add('active');
+                oneWayBtn.classList.remove('active');
+            });
+
+            // Notification icon click handler
+            document.querySelector('.notification-icon').addEventListener('click', function() {
+                window.location.href = '/notifikasi';
+            });
+
+            // Custom select dropdown functionality
             const selects = document.querySelectorAll('.custom-select');
             
             selects.forEach(select => {
@@ -1008,15 +1269,6 @@
                 });
             });
             
-            // Trip type selection
-            const tripOptions = document.querySelectorAll('.trip-option');
-            tripOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    tripOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-            
             // Navigation active state
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => {
@@ -1027,14 +1279,182 @@
             });
             
             // Set today's date as default if not set
-            const dateField = document.querySelector('.date-field');
-            if (!dateField.value) {
+            if (!departureDateField.value) {
                 const today = new Date();
                 const dd = String(today.getDate()).padStart(2, '0');
                 const mm = String(today.getMonth() + 1).padStart(2, '0');
                 const yyyy = today.getFullYear();
-                dateField.value = `${yyyy}-${mm}-${dd}`;
+                departureDateField.value = `${yyyy}-${mm}-${dd}`;
             }
+
+            // Passenger selector functionality
+            const passengerModal = document.getElementById('passenger-modal');
+            const passengerInput = document.getElementById('passenger-input');
+            const closePassenger = document.getElementById('close-passenger');
+            const passengerSubmit = document.getElementById('passenger-submit');
+            
+            // Counters
+            const adultMinus = document.getElementById('adult-minus');
+            const adultPlus = document.getElementById('adult-plus');
+            const adultCount = document.getElementById('adult-count');
+            
+            const childMinus = document.getElementById('child-minus');
+            const childPlus = document.getElementById('child-plus');
+            const childCount = document.getElementById('child-count');
+            
+            const infantMinus = document.getElementById('infant-minus');
+            const infantPlus = document.getElementById('infant-plus');
+            const infantCount = document.getElementById('infant-count');
+            
+            let adults = 1;
+            let children = 0;
+            let infants = 0;
+            
+            // Open passenger modal
+            passengerInput.addEventListener('click', function() {
+                passengerModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Close passenger modal
+            closePassenger.addEventListener('click', function() {
+                passengerModal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Close modal when clicking outside
+            passengerModal.addEventListener('click', function(e) {
+                if (e.target === passengerModal) {
+                    passengerModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Adult counter
+            adultPlus.addEventListener('click', function() {
+                adults++;
+                adultCount.textContent = adults;
+                adultMinus.disabled = false;
+                updatePassengerInput();
+                
+                // Disable plus button if max reached
+                if (adults >= 9) {
+                    adultPlus.disabled = true;
+                }
+            });
+            
+            adultMinus.addEventListener('click', function() {
+                if (adults > 1) {
+                    adults--;
+                    adultCount.textContent = adults;
+                    updatePassengerInput();
+                    
+                    // Enable plus button
+                    adultPlus.disabled = false;
+                    
+                    // Disable minus button if min reached
+                    if (adults <= 1) {
+                        adultMinus.disabled = true;
+                    }
+                }
+            });
+            
+            // Child counter
+            childPlus.addEventListener('click', function() {
+                children++;
+                childCount.textContent = children;
+                childMinus.disabled = false;
+                updatePassengerInput();
+                
+                // Disable plus button if max reached
+                if (children >= 8) {
+                    childPlus.disabled = true;
+                }
+            });
+            
+            childMinus.addEventListener('click', function() {
+                if (children > 0) {
+                    children--;
+                    childCount.textContent = children;
+                    updatePassengerInput();
+                    
+                    // Enable plus button
+                    childPlus.disabled = false;
+                    
+                    // Disable minus button if min reached
+                    if (children <= 0) {
+                        childMinus.disabled = true;
+                    }
+                }
+            });
+            
+            // Infant counter
+            infantPlus.addEventListener('click', function() {
+                // Max infants is equal to number of adults
+                if (infants < adults) {
+                    infants++;
+                    infantCount.textContent = infants;
+                    infantMinus.disabled = false;
+                    updatePassengerInput();
+                }
+                
+                // Disable plus button if max reached
+                if (infants >= adults) {
+                    infantPlus.disabled = true;
+                }
+            });
+            
+            infantMinus.addEventListener('click', function() {
+                if (infants > 0) {
+                    infants--;
+                    infantCount.textContent = infants;
+                    updatePassengerInput();
+                    
+                    // Enable plus button
+                    infantPlus.disabled = false;
+                    
+                    // Disable minus button if min reached
+                    if (infants <= 0) {
+                        infantMinus.disabled = true;
+                    }
+                }
+            });
+            
+            // Update passenger input field
+            function updatePassengerInput() {
+                let passengerText = '';
+                
+                if (adults > 0) {
+                    passengerText += adults + (adults > 1 ? ' Dewasa' : ' Dewasa');
+                }
+                
+                if (children > 0) {
+                    if (passengerText !== '') passengerText += ', ';
+                    passengerText += children + (children > 1 ? ' Anak' : ' Anak');
+                }
+                
+                if (infants > 0) {
+                    if (passengerText !== '') passengerText += ', ';
+                    passengerText += infants + (infants > 1 ? ' Bayi' : ' Bayi');
+                }
+                
+                if (passengerText === '') {
+                    passengerText = '1 Dewasa';
+                    adults = 1;
+                    adultCount.textContent = adults;
+                }
+                
+                passengerInput.value = passengerText;
+            }
+            
+            // Submit passenger selection
+            passengerSubmit.addEventListener('click', function() {
+                passengerModal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Initialize passenger input
+            updatePassengerInput();
         });
     </script>
 </body>

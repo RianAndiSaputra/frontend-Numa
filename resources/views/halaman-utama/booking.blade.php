@@ -4,7 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Pemesanan - SkyBooking</title>
+    <link href="https://unpkg.com/lucide@latest/dist/lucide.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        :root {
+            --primary-color: #8B0000;
+            --secondary-color: #A0001C;
+            --accent-color: #FF6B6B;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,34 +29,54 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            min-height: 100vh;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 375px;
+            max-width: 100%;
+            width: 100%;
             margin: 0 auto;
-            background: white;
+            background: var(--white);
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow-x: hidden;
         }
 
         /* Header */
-        .header {
-            background: linear-gradient(135deg, #8B0000, #A0001C);
-            color: white;
-            padding: 50px 20px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .main-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 60px 20px 30px;
+            position: relative;
+            z-index: 10;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .main-header::after {
+            content: '';
+            position: absolute;
+            bottom: -24px;
+            left: 0;
+            right: 0;
+            height: 24px;
+            background: var(--white);
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            z-index: 1;
         }
 
         .header-top {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
         }
 
         .back-btn {
@@ -54,8 +90,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
         }
 
         .back-btn:hover {
@@ -63,18 +99,16 @@
         }
 
         .header-title {
-            flex: 1;
-        }
-
-        .header-title h1 {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 2px;
+            flex: 1;
+            text-align: center;
         }
 
-        .header-title p {
+        .header-subtitle {
             font-size: 12px;
             opacity: 0.9;
+            margin-top: 5px;
         }
 
         /* Progress Steps */
@@ -82,8 +116,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 20px 15px;
             position: relative;
+            background: var(--white);
+            margin-top: 10px;
         }
 
         .step {
@@ -92,6 +128,7 @@
             align-items: center;
             position: relative;
             z-index: 2;
+            flex: 1;
         }
 
         .step-number {
@@ -99,43 +136,46 @@
             height: 30px;
             border-radius: 50%;
             background: #e9ecef;
-            color: #6c757d;
+            color: var(--text-light);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
             margin-bottom: 5px;
             border: 2px solid #e9ecef;
+            transition: var(--transition);
         }
 
         .step.active .step-number {
-            background: #8B0000;
-            color: white;
-            border-color: #8B0000;
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
         }
 
         .step.completed .step-number {
             background: #28a745;
-            color: white;
+            color: var(--white);
             border-color: #28a745;
         }
 
         .step-text {
             font-size: 10px;
-            color: #6c757d;
+            color: var(--text-light);
             text-align: center;
+            max-width: 80px;
+            word-break: break-word;
         }
 
         .step.active .step-text {
-            color: #8B0000;
+            color: var(--primary-color);
             font-weight: 500;
         }
 
         .progress-line {
             position: absolute;
             top: 35px;
-            left: 20%;
-            right: 20%;
+            left: 15%;
+            right: 15%;
             height: 2px;
             background: #e9ecef;
             z-index: 1;
@@ -147,39 +187,39 @@
             left: 0;
             height: 100%;
             width: 50%;
-            background: #8B0000;
-            transition: all 0.3s ease;
+            background: var(--primary-color);
+            transition: var(--transition);
         }
 
         /* Flight Summary */
         .flight-summary {
-            background: white;
-            border-radius: 15px;
+            background: var(--white);
+            border-radius: 12px;
             margin: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid #f1f1f1;
+            padding: 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .summary-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
             border-bottom: 1px dashed #e9ecef;
         }
 
         .summary-title {
             font-size: 16px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-dark);
         }
 
         .edit-btn {
             background: none;
             border: none;
-            color: #8B0000;
+            color: var(--primary-color);
             font-size: 12px;
             font-weight: 500;
             display: flex;
@@ -194,17 +234,17 @@
         }
 
         .airline-logo {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #8B0000, #A0001C);
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
             font-size: 14px;
-            margin-right: 15px;
+            margin-right: 12px;
         }
 
         .flight-info {
@@ -219,7 +259,7 @@
 
         .flight-number {
             font-size: 12px;
-            color: #6c757d;
+            color: var(--text-light);
             margin-bottom: 10px;
         }
 
@@ -236,12 +276,12 @@
         .time {
             font-size: 16px;
             font-weight: 700;
-            color: #2c3e50;
+            color: var(--text-dark);
         }
 
         .date {
             font-size: 12px;
-            color: #6c757d;
+            color: var(--text-light);
             margin: 3px 0;
         }
 
@@ -260,7 +300,7 @@
 
         .duration {
             font-size: 12px;
-            color: #6c757d;
+            color: var(--text-light);
             white-space: nowrap;
         }
 
@@ -280,25 +320,26 @@
             font-size: 12px;
         }
 
-        /* Passenger Form */
+        /* Form Sections */
         .form-section {
-            padding: 20px;
+            padding: 15px;
+            margin-bottom: 10px;
         }
 
         .section-title {
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 15px;
-            color: #2c3e50;
+            color: var(--text-dark);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .section-title .icon {
-            width: 25px;
-            height: 25px;
-            background: #8B0000;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -307,15 +348,16 @@
             font-size: 12px;
         }
 
+        /* Form Elements */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-label {
             display: block;
             font-size: 13px;
             margin-bottom: 8px;
-            color: #495057;
+            color: var(--text-dark);
             font-weight: 500;
         }
 
@@ -323,20 +365,21 @@
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e9ecef;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            background: var(--white);
         }
 
         .form-control:focus {
-            border-color: #8B0000;
+            border-color: var(--primary-color);
             outline: none;
             box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
         }
 
         .form-row {
             display: flex;
-            gap: 15px;
+            gap: 10px;
         }
 
         .form-col {
@@ -353,7 +396,7 @@
             top: 50%;
             right: 15px;
             transform: translateY(-50%);
-            color: #6c757d;
+            color: var(--text-light);
             pointer-events: none;
         }
 
@@ -362,54 +405,57 @@
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e9ecef;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 14px;
-            background-color: white;
+            background-color: var(--white);
         }
 
         /* Contact Info */
         .contact-info {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 16px;
             margin: 15px;
         }
 
         .info-note {
             font-size: 12px;
-            color: #6c757d;
+            color: var(--text-light);
             margin-top: 10px;
             line-height: 1.5;
         }
 
         /* Baggage Selection */
         .baggage-options {
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .option-card {
             display: flex;
             align-items: center;
-            padding: 15px;
+            padding: 12px;
             border: 1px solid #e9ecef;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            background: var(--white);
         }
 
         .option-card:hover {
-            border-color: #8B0000;
+            border-color: var(--primary-color);
         }
 
         .option-card.selected {
-            border-color: #8B0000;
-            background: rgba(139, 0, 0, 0.05);
+            border-color: var(--primary-color);
+            background: rgba(139, 0, 0, 0.03);
         }
 
         .option-radio {
-            margin-right: 15px;
-            accent-color: #8B0000;
+            margin-right: 12px;
+            accent-color: var(--primary-color);
+            width: 16px;
+            height: 16px;
         }
 
         .option-details {
@@ -424,14 +470,14 @@
 
         .option-desc {
             font-size: 12px;
-            color: #6c757d;
+            color: var(--text-light);
         }
 
         .option-price {
             font-size: 14px;
             font-weight: 600;
-            color: #8B0000;
-            margin-left: 15px;
+            color: var(--primary-color);
+            margin-left: 12px;
         }
 
         /* Insurance Toggle */
@@ -439,10 +485,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            margin-top: 20px;
+            padding: 12px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            margin-top: 15px;
         }
 
         .toggle-info {
@@ -459,7 +505,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #6c757d;
+            color: var(--text-light);
         }
 
         .toggle-text h4 {
@@ -470,7 +516,7 @@
 
         .toggle-text p {
             font-size: 12px;
-            color: #6c757d;
+            color: var(--text-light);
         }
 
         .toggle-switch {
@@ -494,7 +540,7 @@
             right: 0;
             bottom: 0;
             background-color: #ccc;
-            transition: .4s;
+            transition: var(--transition);
             border-radius: 24px;
         }
 
@@ -506,12 +552,12 @@
             left: 4px;
             bottom: 4px;
             background-color: white;
-            transition: .4s;
+            transition: var(--transition);
             border-radius: 50%;
         }
 
         input:checked + .slider {
-            background-color: #8B0000;
+            background-color: var(--primary-color);
         }
 
         input:checked + .slider:before {
@@ -520,22 +566,22 @@
 
         /* Price Summary */
         .price-summary {
-            background: white;
-            border-radius: 15px;
+            background: var(--white);
+            border-radius: 12px;
             margin: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 16px;
+            box-shadow: var(--shadow-sm);
         }
 
         .price-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .price-label {
             font-size: 14px;
-            color: #6c757d;
+            color: var(--text-light);
         }
 
         .price-value {
@@ -552,85 +598,37 @@
 
         .price-total .price-value {
             font-size: 18px;
-            color: #8B0000;
-        }
-
-        /* Bottom Action */
-        .bottom-action {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 375px;
-            background: white;
-            padding: 15px 20px;
-            border-top: 1px solid #e9ecef;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .total-price {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .total-label {
-            font-size: 12px;
-            color: #6c757d;
-        }
-
-        .total-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #8B0000;
-        }
-
-        .pay-btn {
-            background: linear-gradient(135deg, #8B0000, #A0001C);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .pay-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(139,0,0,0.3);
+            color: var(--primary-color);
         }
 
         /* Passenger List */
         .passenger-list {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .passenger-item {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
             position: relative;
         }
 
         .passenger-name {
             font-weight: 600;
             margin-bottom: 5px;
+            font-size: 14px;
         }
 
         .passenger-details {
             font-size: 12px;
-            color: #6c757d;
+            color: var(--text-light);
         }
 
         .remove-passenger {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
             background: none;
             border: none;
             color: #dc3545;
@@ -645,17 +643,80 @@
             gap: 8px;
             width: 100%;
             padding: 12px;
-            background: #f8f9fa;
+            background: var(--bg-light);
             border: 1px dashed #adb5bd;
-            border-radius: 10px;
-            color: #8B0000;
+            border-radius: 8px;
+            color: var(--primary-color);
             font-weight: 500;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 8px;
+            font-size: 14px;
+            transition: var(--transition);
         }
 
         .add-passenger-btn:hover {
             background: #e9ecef;
+        }
+
+        /* Bottom Action */
+        .bottom-action {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: var(--white);
+            padding: 15px;
+            border-top: 1px solid #e9ecef;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .total-price {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            max-width: calc(100% - 150px);
+        }
+
+        .total-label {
+            font-size: 12px;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .total-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .pay-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 120px;
+            flex-shrink: 0;
+        }
+
+        .pay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139,0,0,0.3);
         }
 
         /* Modal */
@@ -673,20 +734,21 @@
         }
 
         .modal-content {
-            background: white;
+            background: var(--white);
             width: 90%;
             max-width: 400px;
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 16px;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: var(--shadow-lg);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px solid #e9ecef;
         }
@@ -701,14 +763,14 @@
             border: none;
             font-size: 20px;
             cursor: pointer;
-            color: #6c757d;
+            color: var(--text-light);
         }
 
         .modal-footer {
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid #e9ecef;
         }
@@ -718,32 +780,55 @@
             border-radius: 8px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            font-size: 14px;
         }
 
         .btn-secondary {
-            background: #f8f9fa;
+            background: var(--bg-light);
             border: 1px solid #e9ecef;
-            color: #495057;
+            color: var(--text-dark);
         }
 
         .btn-primary {
-            background: #8B0000;
+            background: var(--primary-color);
             border: none;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #A0001C;
+            background: var(--secondary-color);
         }
 
-        @media (max-width: 375px) {
+        /* Responsive Adjustments */
+        @media (min-width: 500px) {
             .container {
-                max-width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+                box-shadow: var(--shadow-lg);
+                position: relative;
             }
             
             .bottom-action {
-                width: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                max-width: 500px;
+                border-radius: 12px 12px 0 0;
+            }
+            
+            .total-price {
+                max-width: none;
+            }
+            
+            .flight-summary,
+            .contact-info,
+            .price-summary {
+                margin: 20px;
+                padding: 18px;
+            }
+            
+            .form-section {
+                padding: 20px;
             }
         }
     </style>
@@ -751,17 +836,16 @@
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header">
+        <div class="main-header">
             <div class="header-top">
                 <button class="back-btn" onclick="goBack()">
-                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-                    </svg>
+                    <i data-lucide="arrow-left"></i>
                 </button>
                 <div class="header-title">
-                    <h1>Detail Pemesanan</h1>
-                    <p>Isi data penumpang dan pembayaran</p>
+                    Detail Pemesanan
+                    <div class="header-subtitle">Isi data penumpang dan pembayaran</div>
                 </div>
+                <div style="width: 40px;"></div> <!-- Spacer for alignment -->
             </div>
         </div>
 
@@ -789,9 +873,7 @@
             <div class="summary-header">
                 <div class="summary-title">Penerbangan Anda</div>
                 <button class="edit-btn" onclick="editFlight()">
-                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                    </svg>
+                    <i data-lucide="pencil"></i>
                     Ubah
                 </button>
             </div>
@@ -833,9 +915,7 @@
             </div>
             
             <button class="add-passenger-btn" onclick="openAddPassengerModal()">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                </svg>
+                <i data-lucide="user-plus"></i>
                 Tambah Penumpang
             </button>
         </div>
@@ -910,9 +990,7 @@
             <div class="insurance-toggle">
                 <div class="toggle-info">
                     <div class="toggle-icon">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
-                        </svg>
+                        <i data-lucide="shield-alert"></i>
                     </div>
                     <div class="toggle-text">
                         <h4>Asuransi Perjalanan</h4>
@@ -969,7 +1047,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Tambah Penumpang</h3>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
+                <button class="close-modal" onclick="closeModal()">
+                    <i data-lucide="x"></i>
+                </button>
             </div>
             
             <div class="form-group">
@@ -1018,6 +1098,9 @@
     </div>
 
     <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
         // Fungsi untuk kembali ke halaman sebelumnya
         function goBack() {
             window.history.back();
@@ -1086,11 +1169,39 @@
         // Fungsi untuk update ringkasan harga
         function updatePriceSummary() {
             // Implementasi update harga berdasarkan pilihan
+            // Ini adalah contoh sederhana, Anda perlu menyesuaikan dengan logika bisnis Anda
+            
+            const basePrice = 1250000;
+            let total = basePrice;
+            
+            // Tambahan bagasi
+            const selectedBaggage = document.querySelector('.option-card.selected .option-price').textContent;
+            if(selectedBaggage.includes('150.000')) {
+                total += 150000;
+            } else if(selectedBaggage.includes('250.000')) {
+                total += 250000;
+            }
+            
+            // Asuransi
+            if(document.getElementById('insuranceToggle').checked) {
+                total += 100000; // Contoh biaya asuransi
+            }
+            
+            // Update tampilan
+            document.querySelector('.price-total .price-value').textContent = formatCurrency(total);
+            document.querySelector('.total-value').textContent = formatCurrency(total);
+        }
+
+        // Format mata uang
+        function formatCurrency(amount) {
+            return 'Rp' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
         // Fungsi untuk modal penumpang
         function openAddPassengerModal() {
             document.getElementById('addPassengerModal').style.display = 'flex';
+            // Refresh icons in modal
+            lucide.createIcons();
         }
 
         function closeModal() {
@@ -1127,7 +1238,9 @@
             const passengerItem = document.createElement('div');
             passengerItem.className = 'passenger-item';
             passengerItem.innerHTML = `
-                <button class="remove-passenger" onclick="removePassenger(this)">&times;</button>
+                <button class="remove-passenger" onclick="removePassenger(this)">
+                    <i data-lucide="x"></i>
+                </button>
                 <div class="passenger-name">${title} ${name}</div>
                 <div class="passenger-details">
                     <div>${gender} • ${formattedDob}</div>
@@ -1137,6 +1250,9 @@
             
             // Tambahkan ke daftar penumpang
             document.getElementById('passengerList').appendChild(passengerItem);
+            
+            // Refresh icons in new passenger item
+            lucide.createIcons();
             
             // Tutup modal
             closeModal();
@@ -1159,6 +1275,9 @@
                 closeModal();
             }
         }
+
+        // Inisialisasi data pertama kali
+        updatePriceSummary();
     </script>
 </body>
 </html>
