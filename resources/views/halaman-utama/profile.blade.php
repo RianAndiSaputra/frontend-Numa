@@ -529,7 +529,7 @@
                     </div>
                     <div class="sidebar-text">Tentang Kami</div>
                 </div>
-                <div class="sidebar-item" onclick="window.open('https://wa.me/6285727122918', '_blank')">
+                <div class="sidebar-item" onclick="window.open('https://wa.me/6281132222500', '_blank')">
                     <div class="sidebar-icon">
                         <i data-lucide="help-circle"></i>
                     </div>
