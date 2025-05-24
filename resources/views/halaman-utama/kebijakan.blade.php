@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kebijakan Privasi</title>
+    <title>Kebijakan Privasi Numpak Mabur</title>
     <style>
         :root {
             --primary-color: #8B0000;
@@ -188,81 +188,71 @@
                     <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                 </svg>
             </button>
-            <h1>Kebijakan Privasi</h1>
-            <p>Terakhir diperbarui: 1 Juni 2023</p>
+            <h1>Kebijakan Privasi Numpak Mabur</h1>
+            <p>Terakhir diperbarui: 30 Mei 2024</p>
         </div>
 
         <!-- Content -->
         <div class="privacy-content">
             <div class="section">
                 <h2>Pengantar</h2>
-                <p>Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan membagikan informasi pribadi Anda ketika Anda menggunakan aplikasi atau layanan kami. Dengan menggunakan layanan kami, Anda menyetujui pengumpulan dan penggunaan informasi sesuai dengan kebijakan ini.</p>
+                <p>Selamat datang di Numpak Mabur. Kami menghargai privasi Anda dan berkomitmen untuk melindungi informasi pribadi Anda. Kebijakan Privasi ini menjelaskan jenis data yang kami kumpulkan, bagaimana kami menggunakannya, dan langkah-langkah yang kami ambil untuk memastikan keamanannya. Dengan menggunakan aplikasi kami, Anda menyetujui ketentuan kebijakan ini.</p>
             </div>
 
             <div class="section">
-                <h2>Informasi yang Kami Kumpulkan</h2>
-                <p>Kami mengumpulkan beberapa jenis informasi untuk berbagai tujuan untuk menyediakan dan meningkatkan layanan kami:</p>
-                
-                <h3>Data Pribadi</h3>
-                <p>Saat menggunakan layanan kami, kami mungkin meminta Anda untuk memberikan informasi identitas pribadi tertentu yang dapat digunakan untuk menghubungi atau mengidentifikasi Anda, termasuk tetapi tidak terbatas pada:</p>
+                <h2>Pengumpulan Data</h2>
+                <p>Numpak Mabur mengumpulkan jenis data sebagai berikut:</p>
                 <ul>
-                    <li>Nama lengkap</li>
-                    <li>Alamat email</li>
-                    <li>Nomor telepon</li>
-                    <li>Alamat fisik</li>
-                    <li>Data identitas (KTP, SIM, dll)</li>
-                </ul>
-
-                <h3>Data Penggunaan</h3>
-                <p>Kami juga dapat mengumpulkan informasi tentang bagaimana layanan diakses dan digunakan ("Data Penggunaan"). Data Penggunaan ini mungkin mencakup informasi seperti alamat Protokol Internet perangkat Anda (mis. alamat IP), jenis browser, versi browser, halaman layanan kami yang Anda kunjungi, waktu dan tanggal kunjungan Anda, waktu yang dihabiskan pada halaman tersebut, pengenal perangkat unik, dan data diagnostik lainnya.</p>
-            </div>
-
-            <div class="section">
-                <h2>Penggunaan Data</h2>
-                <p>Kami menggunakan data yang dikumpulkan untuk berbagai tujuan:</p>
-                <ul>
-                    <li>Menyediakan dan memelihara layanan kami</li>
-                    <li>Memberitahu Anda tentang perubahan layanan kami</li>
-                    <li>Memungkinkan partisipasi Anda dalam fitur interaktif layanan kami</li>
-                    <li>Memberikan dukungan pelanggan</li>
-                    <li>Mengumpulkan analisis atau informasi berharga sehingga kami dapat meningkatkan layanan kami</li>
-                    <li>Memantau penggunaan layanan kami</li>
-                    <li>Mendeteksi, mencegah, dan mengatasi masalah teknis</li>
+                    <li>ID Pengguna</li>
+                    <li>Identitas Pengguna</li>
+                    <li>Alamat Pengguna</li>
+                    <li>Informasi Perbankan Pengguna</li>
+                    <li>Nomor Telepon Pengguna</li>
+                    <li>Kebangsaan</li>
                 </ul>
             </div>
 
             <div class="section">
-                <h2>Transfer Data</h2>
-                <p>Informasi Anda, termasuk Data Pribadi, dapat ditransfer ke — dan dipelihara di — komputer yang berada di luar yurisdiksi negara, provinsi, negara bagian, atau pemerintah lainnya di mana undang-undang perlindungan data mungkin berbeda dari yurisdiksi Anda.</p>
-                <p>Jika Anda berada di luar Indonesia dan memilih untuk memberikan informasi kepada kami, harap dicatat bahwa kami mentransfer data, termasuk Data Pribadi, ke Indonesia dan memprosesnya di sana.</p>
-                <p>Persetujuan Anda terhadap Kebijakan Privasi ini diikuti dengan pengiriman informasi tersebut merupakan persetujuan Anda untuk transfer tersebut.</p>
+                <h2>Bagaimana Kami Menggunakan Data Anda</h2>
+                <p>Kami menggunakan data yang dikumpulkan dengan tujuan sebagai berikut:</p>
+                <ul>
+                    <li>Untuk verifikasi dan autentikasi pengguna</li>
+                    <li>Untuk memproses transaksi dan pembayaran</li>
+                    <li>Untuk menyediakan layanan dan dukungan pelanggan</li>
+                    <li>Untuk meningkatkan kualitas layanan kami</li>
+                    <li>Untuk memenuhi kewajiban hukum dan regulasi</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Pengungkapan Data</h2>
+                <p>Kami tidak menjual, memperdagangkan, atau mentransfer data pribadi Anda kepada pihak luar tanpa persetujuan Anda, kecuali seperti yang dijelaskan di bawah ini:</p>
+                <ul>
+                    <li><strong>Penyedia Layanan:</strong> Kami dapat berbagi data Anda dengan penyedia layanan pihak ketiga yang terpercaya yang membantu kami dalam mengoperasikan aplikasi kami, menjalankan bisnis kami, atau melayani Anda, asalkan pihak-pihak tersebut setuju untuk menjaga kerahasiaan informasi ini.</li>
+                    <li><strong>Persyaratan Hukum:</strong> Kami dapat mengungkapkan data Anda jika diwajibkan oleh hukum atau sebagai tanggapan terhadap permintaan yang sah oleh otoritas publik (misalnya, pengadilan atau badan pemerintah).</li>
+                </ul>
             </div>
 
             <div class="section">
                 <h2>Keamanan Data</h2>
-                <p>Keamanan data Anda penting bagi kami, tetapi ingat bahwa tidak ada metode transmisi melalui Internet atau metode penyimpanan elektronik yang 100% aman. Meskipun kami berusaha untuk menggunakan cara yang dapat diterima secara komersial untuk melindungi Data Pribadi Anda, kami tidak dapat menjamin keamanan mutlaknya.</p>
-                <p>Kami menerapkan langkah-langkah teknis dan organisasi yang sesuai untuk melindungi informasi pribadi Anda dari akses, penggunaan, atau pengungkapan yang tidak sah.</p>
-            </div>
-
-            <div class="section">
-                <h2>Perubahan pada Kebijakan Privasi Ini</h2>
-                <p>Kami dapat memperbarui Kebijakan Privasi kami dari waktu ke waktu. Kami akan memberi tahu Anda tentang perubahan apa pun dengan memposting Kebijakan Privasi baru di halaman ini.</p>
-                <p>Kami akan memberi tahu Anda melalui email dan/atau pemberitahuan yang jelas di Layanan kami, sebelum perubahan menjadi efektif dan memperbarui tanggal "Terakhir diperbarui" di bagian atas Kebijakan Privasi ini.</p>
-                <p>Anda disarankan untuk meninjau Kebijakan Privasi ini secara berkala untuk setiap perubahan. Perubahan pada Kebijakan Privasi ini berlaku efektif ketika diposting di halaman ini.</p>
+                <p>Kami menerapkan berbagai langkah keamanan untuk menjaga keamanan informasi pribadi Anda. Kami menggunakan enkripsi untuk melindungi data sensitif yang dikirimkan secara online, dan juga melindungi informasi Anda secara offline.</p>
             </div>
 
             <div class="section">
                 <h2>Hubungi Kami</h2>
-                <p>Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini, silakan hubungi kami:</p>
+                <p>Jika Anda memiliki pertanyaan atau kekhawatiran tentang Kebijakan Privasi ini atau praktik data kami, silakan hubungi kami di:</p>
                 <ul>
-                    <li>Melalui email: privasi@perusahaan.com</li>
-                    <li>Melalui telepon: +62 123 4567 890</li>
-                    <li>Melalui pos: Jl. Contoh No. 123, Jakarta, Indonesia</li>
+                    <li>Email: support@numpakmabur.com</li>
                 </ul>
             </div>
 
+            <div class="section">
+                <h2>Perubahan pada Kebijakan Privasi Ini</h2>
+                <p>Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu untuk mencerminkan perubahan dalam praktik kami atau persyaratan hukum. Kami akan memberi tahu Anda tentang perubahan signifikan dengan memposting Kebijakan Privasi baru di halaman ini dan memperbarui tanggal efektif.</p>
+            </div>
+
             <div class="last-updated">
-                Dokumen ini terakhir diperbarui pada 1 Juni 2023
+                Dokumen ini terakhir diperbarui pada 30 Mei 2024
             </div>
         </div>
     </div>
